@@ -17,8 +17,13 @@ This work aimed to understand the aging signature on the neurogenesis process in
 * Corresponding author: Mostafa Torbati
 
 # Hardware specifications
-
+The following hardware was used:
 * Apple MacBook Pro (Mid 2014, macOS Big Sur Version 11.7) used as a local computer.
 * [LUNARC HPC Desktop](https://lunarc-documentation.readthedocs.io/en/latest/using_hpc_desktop/ "LUNARC Documentation") (High-performance computing), is used for preprocessing and visualizing the raw data.
 
 # Software versions
+* Cell Ranger v6.0
+* Scanpy v1.7.2
+* ScVelo v0.2.4
+* Velocyto v0.17.17
+
