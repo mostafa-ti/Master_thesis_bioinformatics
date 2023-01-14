@@ -48,6 +48,8 @@ module purge #remove all currently loaded modules
 module load [packages/software] #load packages
 exit 0
 ```
-
-
+The script is then submitted to the scheduler using the command:
+```bash
+sbatch my_script.sh
+```
 
