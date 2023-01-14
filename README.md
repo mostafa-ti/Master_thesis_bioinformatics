@@ -19,11 +19,35 @@ This work aimed to understand the aging signature on the neurogenesis process in
 # Hardware specifications
 The following hardware was used:
 * Apple MacBook Pro (Mid 2014, macOS Big Sur Version 11.7) used as a local computer.
-* [LUNARC HPC Desktop](https://lunarc-documentation.readthedocs.io/en/latest/using_hpc_desktop/ "LUNARC Documentation") (High-performance computing), is used for preprocessing and visualizing the raw data.
+* [LUNARC's Aurora service HPC Desktop](https://lunarc-documentation.readthedocs.io/en/latest/using_hpc_desktop/ "LUNARC Documentation") (High-performance computing), is used for preprocessing and visualizing the raw data.
 
 # Software versions
 * Cell Ranger v6.0
 * Scanpy v1.7.2
-* ScVelo v0.2.4
 * Velocyto v0.17.17
+* ScVelo v0.2.4
+
+# Installation
+On this project, we're working with large data and software such as Cell Ranger, which need High-performance computing (HPC) power. All the bioinformatics workflows for this project have been done on LUNARC Aurora service HPC Desktop ( the center for scientific and technical computing at Lund University).
+All the software is pre-installed on the LUNARC clusters so that users can access and load software packages based on the project's requirements.
+To efficiently management of the compute resources, we need to follow the [SLURM](https://lunarc-documentation.readthedocs.io/en/latest/batch_system/ "SLURM - the batch system at LUNARC")
+ job scheduler, which in simple words, is a bash script that loads all the necessary packages and sends it to the backend system.
+Here is an example of a `bash script` for submitting a job on Aurora:
+```bash
+#! /bin/bash
+#SBATCH -A LSENS2018-3-3 # the ID of our Aurora project
+#SBATCH -n 20 # how many processor cores to use
+#SBATCH -N 1 # how many processors to use
+#SBATCH -t 24:00:00 # kill the job after ths hh::mm::ss time
+#SBATCH -J [JOB_NAME]# name of the job
+#SBATCH -o [OUTPUT_report]%j.out # stdout log file
+#SBATCH -e [ERROR_report]%j.err # stderr log file
+#SBATCH -p dell # which partition to use
+# load the necessary modules
+module purge #remove all currently loaded modules 
+module load [packages/software] #load packages
+exit 0
+```
+
+
 
