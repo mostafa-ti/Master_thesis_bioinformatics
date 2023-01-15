@@ -218,7 +218,7 @@ exit 0
 ```
 >Running this code successfully generates a directory containing the sample folders (it's`mkfastq_1stRun` in our case) would be named according to the flow cell ID.
 
-### Run `cellranger mkfastq` for the fisrt sequencing run
+### Run `cellranger mkfastq` for the second sequencing run
 ```bash
 #! /bin/bash
 #SBATCH -A LSENS2018-3-3
