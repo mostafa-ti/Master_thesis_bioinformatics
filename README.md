@@ -31,7 +31,7 @@ The following hardware was used:
 On this project, we're working with large data and software such as Cell Ranger, which need High-performance computing (HPC) power. All the bioinformatics workflows for this project have been done on LUNARC Aurora service HPC Desktop ( the center for scientific and technical computing at Lund University).
 All the software is pre-installed on the LUNARC clusters so that users can access and load software packages based on the project's requirements.
 To efficiently management of the compute resources, we need to follow the [SLURM](https://lunarc-documentation.readthedocs.io/en/latest/batch_system/ "SLURM - the batch system at LUNARC")
- job scheduler, which in simple words, is a bash script that loads all the necessary packages and sends it to the backend system.
+ job scheduler, which in simple words, is a bash script that loads all the necessary packages and sends it to the system backend.
 Here is an example of a `bash script` for submitting a job on Aurora:
 ```bash
 #! /bin/bash
@@ -52,4 +52,67 @@ The script is then submitted to the scheduler using the command:
 ```bash
 sbatch my_script.sh
 ```
+
+# Flowchart
+
+# Cell Ranger workflow
+## Build a Custom Reference
+For this project, we used transgenic mice in which Enhanced Green Fluorescent Protein (EGFP) is expressed under the control of the DCX promoter. As EGFP is not included in the pre-built reference genome, we first created a custom reference genome and added EGFP to an existing mouse reference.
+
+The cellranger mkref command is used to build a custom reference for use with the Cell Ranger pipeline.
+
+### Prepare input files
+* The following files are required to build the reference:
+* FASTA file containing the genome sequences
+* GTF file containing the gene annotation
+
+** get the FASTA file **
+```bash
+wget ftp://ftp.ensembl.org/pub/release-102/fasta/mus_musculus//dna/Mus_musculus.GRCm38.dna.primary_assembly.fa.gz
+```
+** get the GTF file **
+```bash
+wget ftp://ftp.ensembl.org/pub/release-102/gtf/mus_musculus//Mus_musculus.GRCm38.102.chr.gtf.gz
+```
+#### filter the GTF file
+GTF files can contain entries for non-polyA transcripts that overlap with protein-coding gene models.To remove these entries from the GTF, we need to use `cellranger mkgtf` nad add the filter argument `--attribute=gene_biotype:protein_coding` to the mkgtf command:
+```bash
+#! /bin/bash
+#SBATCH -A LSENS2018-3-3 # the ID of our Aurora project
+#SBATCH -n 20 # how many processor cores to use
+#SBATCH -N 1 # how many processors to use
+#SBATCH -t 24:00:00 # kill the job after ths hh::mm::ss time
+#SBATCH -J filter_gtf_Mus # name of the job
+#SBATCH -o filter_gtf_Mus%j.out # stdout log file
+#SBATCH -e filter_gtf_Mus%j.err # stderr log file
+#SBATCH -p dell # which partition to use
+module purge
+module load cellranger/6.0.0 \
+cellranger mkgtf [PATH_TO_GTFfile]\
+Mus_musculus.filtered_gtf.gtf \ #This will output the file Mus_musculus.filtered_gtf.gtf, which will be used in the cellranger mkref step.
+--attribute=gene_biotype:protein_coding
+exit 0
+```
+
+### Setup the command for cellranger mkref
+```bash
+#! /bin/bash
+#SBATCH -A LSENS2018-3-3 # the ID of our Aurora project
+#SBATCH -n 20 # how many processor cores to use
+#SBATCH -N 1 # how many processors to use
+#SBATCH -t 24:00:00 # kill the job after ths hh::mm::ss time
+#SBATCH -J mkref_Mus_musculus # name of the job
+#SBATCH -o mkref_Mus_musculus%j.out # stdout log file
+#SBATCH -e mkref_Mus_musculus%j.err # stderr log file
+#SBATCH -p dell # which partition to use
+module purge
+module load cellranger/6.0.0
+cellranger mkref --genome=Mus.musculus_genome \ #name of the custom reference folder
+--fasta=[replace with the path of FASTA file containing the genome sequences] \
+--genes=[replace with the path  of _Mus_musculus.filtered_gtf.gtf_ created in the previous step]
+exit 0
+```
+
+### Add a marker gene to the FASTA and GTF
+
 
