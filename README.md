@@ -113,6 +113,70 @@ cellranger mkref --genome=Mus.musculus_genome \ #name of the custom reference fo
 exit 0
 ```
 
-### Add a marker gene to the FASTA and GTF
+### Add a marker gene (EGFP) to the FASTA and GTF
+ **get the EGFP gene sequence**
+ [EGFP complete sequence](https://www.ncbi.nlm.nih.gov/nuccore/U55762.1?report=fasta "EGFP complete sequence")
+>Edit the header of EGFP fasta file tp make it more informatice
+```bash
+>EGFP
+TAGTTATTAATAGTAATCAATTACGGGGTCATTAGTTCATAGCCCATATATGGAGTTCCGCGTTACATAA
+CTTACGGTAAATGGCCCGCCTGGCTGACCGCCCAACGACCCCCGCCCATTGACGTCAATAATGACGTATG
+TTCCCATAGTAACGCCAATAGGGACTTTCCATTGACGTCAATGGGTGGAGTATTTACGGTAAACTGCCCA
+CTTGGCAGTACATCAAGTGTATCATATGCCAAGTACGCCCCCTATTGACGTCAATGACGGTAAATGGCCC
+GCCTGGCATTATGCCCAGTACATGACCTTATGGGACTTTCCTACTTGGCAGTACATCTACGTATTAGTCA
+TCGCTATTACCATGGTGATGCGGTTTTGGCAGTACATCAATGGGCGTGGATAGCGGTTTGACTCACGGGG
+ATTTCCAAGTCTCCACCCCATTGACGTCAATGGGAGTTTGTTTTGGCACCAAAATCAACGGGACTTTCCA
+AAATGTCGTAACAACTCCGCCCCATTGACGCAAATGGGCGGTAGGCGTGTACGGTGGGAGGTCTATATAA
+GCAGAGCTGGTTTAGTGAACCGTCAGATCCGCTAGCGCTACCGGACTCAGATCTCGAGCTCAAGCTTCGA
+ATTCTGCAGTCGACGGTACCGCGGGCCCGGGATCCACCGGTCGCCACCATGGTGAGCAAGGGCGAGGAGC
+TGTTCACCGGGGTGGTGCCCATCCTGGTCGAGCTGGACGGCGACGTAAACGGCCACAAGTTCAGCGTGTC
+```
+We need to count the number of bases in the sequence:
+```bash
+cat EGFP.fa | grep -v "^>" | tr -d "\n" | wc -c
+```
+The results of this command shows there are 4733 bases. This is important to know for the creating custom GTF for EGFP.
+
+Now to make a custom GTF for EGFP with the following command:
+>Note: we need to insert the tabs that separate the 9 columns of information required for GTF.
+```bash
+echo -e 'EGFP\tunknown\texon\t1\t4733\t.\t+\t.\tgene_id "EGFP"; transcript_id "EGFP"; gene_name "EGFP"; gene_biotype "protein_coding";' > EGFP.gtf
+```
+
+This is what the EGFP.gtf file looks like with the `cat EGFP.gtf` command:
+```bash
+EGFP	unknown	exon	1	4733	.	+	.	gene_id "EGFP"; transcript_id "EGFP"; gene_name "EGFP"; gene_biotype "protein_coding";
+```
+
+Next, add the EGFP.fa to the end of the M. Musculus genome FASTA. But first, make a copy so that the original is unchanged.
+```bash
+cp Mus_musculus.filtered_gtf.gtf Mus_musculus.filtered_gtf_EGFP.gtf
+```
+
+Now append `EGFP.fa` to `Mus_musculus.filtered_gtf_EGFP.gtf` as following:
+```bash
+cat EGFP.fa >> Mus_musculus.filtered_gtf_EGFP.gtf
+```
+
+###Use cellranger mkref command to create custom reference directory with EGFP added
+Now use the genome_Mus_musculus_EGFP.fa and Mus_musculus.filtered_gtf_EGFP.gtf files as inputs to the cellranger mkref pipeline:
+```bash
+#! /bin/bash
+#SBATCH -A LSENS2018-3-3 # the ID of our Aurora project
+#SBATCH -n 20 # how many processor cores to use
+#SBATCH -N 1 # how many processors to use
+#SBATCH -t 24:00:00 # kill the job after ths hh::mm::ss time
+#SBATCH -J addGFP_Mus_musculus # name of the job
+#SBATCH -o addGFP_Mus_musculus%j.out # stdout log file
+#SBATCH -e addGFP_Mus_musculus%j.err # stderr log file
+#SBATCH -p dell # which partition to use
+module purge
+module load cellranger/6.0.0
+cellranger mkref --genome=Mus.musculus_genome_EGFP \
+--fasta=genome_Mus_musculus_EGFP.fa \
+-genes=Mus_musculus.filtered_gtf_EGFP.gtf
+exit 0
+```
+This outputs a custom reference directory called `Mus.musculus_genome_EGFP/`.
 
 
