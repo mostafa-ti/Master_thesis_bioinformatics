@@ -143,12 +143,12 @@ Now to make a custom GTF for EGFP with the following command:
 echo -e 'EGFP\tunknown\texon\t1\t4733\t.\t+\t.\tgene_id "EGFP"; transcript_id "EGFP"; gene_name "EGFP"; gene_biotype "protein_coding";' > EGFP.gtf
 ```
 
-This is what the EGFP.gtf file looks like with the `cat EGFP.gtf` command:
+This is what the `EGFP.gtf` file looks like with the `cat EGFP.gtf` command:
 ```bash
 EGFP	unknown	exon	1	4733	.	+	.	gene_id "EGFP"; transcript_id "EGFP"; gene_name "EGFP"; gene_biotype "protein_coding";
 ```
 
-Next, add the EGFP.fa to the end of the M. Musculus genome FASTA. But first, make a copy so that the original is unchanged.
+Next, add the `EGFP.fa` to the end of the `M. musculus` genome FASTA. But first, make a copy so that the original is unchanged.
 ```bash
 cp Mus_musculus.filtered_gtf.gtf Mus_musculus.filtered_gtf_EGFP.gtf
 ```
@@ -158,8 +158,9 @@ Now append `EGFP.fa` to `Mus_musculus.filtered_gtf_EGFP.gtf` as following:
 cat EGFP.fa >> Mus_musculus.filtered_gtf_EGFP.gtf
 ```
 
-###Use cellranger mkref command to create custom reference directory with EGFP added
-Now use the genome_Mus_musculus_EGFP.fa and Mus_musculus.filtered_gtf_EGFP.gtf files as inputs to the cellranger mkref pipeline:
+### Use cellranger mkref command to create custom reference directory with EGFP added
+
+Now use the `genome_Mus_musculus_EGFP.fa` and `Mus_musculus.filtered_gtf_EGFP.gtf` files as inputs to the cellranger mkref pipeline:
 ```bash
 #! /bin/bash
 #SBATCH -A LSENS2018-3-3 # the ID of our Aurora project
