@@ -182,7 +182,8 @@ This outputs a custom reference directory called `Mus.musculus_genome_EGFP/`.
 
 # Converting RAW data to FASTQ files
 Raw base call (BCL) was provided for this project from Illumina sequencers.
-10X Genomics describes several scenarios about how to design the workflow of the experiments. Based on each scenario, we need to follow a specific CellRanger pipeline. Here is the schematic description of our scenario: 
+10X Genomics describes several scenarios about how to design the workflow of the experiments. Based on each scenario, we need to follow a specific CellRanger pipeline. Here is the schematic description of our scenario:
+
 **One sample, one GEM well, multiple flow cells**
 ![Project workflow](https://cdn.10xgenomics.com/image/upload/v1647993689/software-support/3p-Single-Cell-GEX/CellRanger_1sample-multiflow.png)
 >In this example, one sample is processed through one GEM well, resulting in one library which is sequenced across multiple flow cells. This workflow is commonly performed to increase sequencing depth.
