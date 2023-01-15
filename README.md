@@ -241,4 +241,5 @@ exit 0
 ```
 >Running this code successfully generates a directory containing the sample folders (it's`mkfastq_2ndRun` in our case) would be named according to the flow cell ID.
 
-#### We ended up with two folders containing FASTQ files for each sequencing run which would be used in the next step.
+#### By running `cellranger mkfastq` on the Illumina BCL we ended up with two folders containing FASTQ files for each sequencing run which will be used in the next step.
+
