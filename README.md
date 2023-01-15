@@ -66,11 +66,11 @@ The cellranger mkref command is used to build a custom reference for use with th
 * FASTA file containing the genome sequences
 * GTF file containing the gene annotation
 
-** get the FASTA file **
+**get the FASTA file**
 ```bash
 wget ftp://ftp.ensembl.org/pub/release-102/fasta/mus_musculus//dna/Mus_musculus.GRCm38.dna.primary_assembly.fa.gz
 ```
-** get the GTF file **
+**get the GTF file**
 ```bash
 wget ftp://ftp.ensembl.org/pub/release-102/gtf/mus_musculus//Mus_musculus.GRCm38.102.chr.gtf.gz
 ```
