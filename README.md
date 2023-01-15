@@ -193,7 +193,7 @@ Raw base call (BCL) was provided for this project from Illumina sequencers.
 
 ### Run `cellranger mkfastq` for the fisrt sequencing run
 In our case, we have one 10x Genomics library sequenced on two flow cells. Note that after running `cellranger mkfastq`, we run a single instance of the cellranger pipeline on all the FASTQ files generated:
-![mkfastq workflow]https://support.10xgenomics.com/img/mkfastq-2.png
+![mkfastq workflow](https://support.10xgenomics.com/img/mkfastq-2.png)
 
 Run the command on LUNARC:
 ```bash
