@@ -55,7 +55,9 @@ sbatch my_script.sh
 
 # Flowchart
 ![Project Flowchart](project_flowchart-3.png "Project Flowchart")
-# Cell Ranger workflow
+
+
+# Data preparation with Cell Ranger workflow
 ## Build a Custom Reference
 For this project, we used transgenic mice in which Enhanced Green Fluorescent Protein (EGFP) is expressed under the control of the DCX promoter. As EGFP is not included in the pre-built reference genome, we first created a custom reference genome and added EGFP to an existing mouse reference.
 
