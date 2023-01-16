@@ -280,5 +280,31 @@ For this project, we have nine samples of three age groups from 3 neurogenic nic
 ***`cellranger count` generates multiple outputs in different formats which can be used for many downstream analysis.***
 
 
+# Velocyto Run on 10X Chromium samples
+We need to combine spliced and unspliced RNA-seq data for the velocity analysis. For this purpose, we use the `Velocyto command line tool`. Velocyto provides tools for different technologies. We use `run10x`as our samples are generated through 10X Chromium technology.
 
+> Example bash script on LUNARC
+```bash
+#!/bin/sh
+#SBATCH -n 20
+#SBATCH -N 1
+#SBATCH -t 20:00:00
+#SBATCH -A lsens2018-3-3
+#SBATCH -p dell
+#SBATCH -J velocyto
+#SBATCH -o DG3_velocyto.%j.out
+#SBATCH -e DG3_velocyto.%j.err
+module purge
+module load GCC/10.2.0
+module load velocyto/0.17.17
+module load SAMtools/1.12
+repeats="mm10_rmsk.gtf"
+transcriptome="EGFP.gtf"
+cellranger_output="/cellranger_count/DG3/DG3_count"
+velocyto run10x -m $repeats \
+                $cellranger_output \
+                $transcriptome
+exit 0
+```
 
+***We need to run this code for each of our nine samples. This pipeline will generate a folder in the cellranger count output folder, which contain a loom file for spliced and unspliced regions.***
