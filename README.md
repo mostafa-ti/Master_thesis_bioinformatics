@@ -243,3 +243,34 @@ exit 0
 
 #### By running `cellranger mkfastq` on the Illumina BCL we ended up with two folders containing FASTQ files for each sequencing run which will be used in the next step.
 
+
+# Cell Ranger count pipeline
+
+The `count` pipeline is the next step after `mkfastq`. In this step FASTQ files from two sequencing libraries and generates a count matrix, which is a table of the number of times each gene was detected in each cell. This matrix is then used as input for downstream analysis, such as identifying differentially expressed genes or clustering cells into groups. The pipeline does this by using a series of steps, including quality control, alignment, and quantification of reads.
+```bash
+#! /bin/bash
+#SBATCH -A LSENS2018-3-3
+#SBATCH -n 20
+#SBATCH -N 1
+#SBATCH -t 24:00:00
+#SBATCH -J Run_all_count
+#SBATCH -o count_combine2reads%j.out
+#SBATCH -e count_combine2reads%j.err
+#SBATCH -p dell
+module --force purge
+module load SoftwareTree/Haswell
+module load cellranger/6.0.0
+cellranger count --id=allReads_run_count \ #output folder
+--fastqs=/mkfastq_1stRun/outs/fastq_path/Chromium_20180912,/mkfastq_2ndRun/outs/fastq_path/Chromium_20180912 \ #two comma-separated of FASTQ paths
+--sample=DG14,DG24,DG3,OB14,OB24,OB3,SVZ14,SVZ24,SVZ3 \
+--transcriptome=custom_ref_gene/Mus.musculus_genome_EGFP
+exit 0
+```
+>In the `cellranger count`pipeline, we can add multiple comma-separated paths of FASTQ files for the `--fastqs` argument. Doing this will treat all reads from the library, across flow cells, as one sample. This approach is essential when we have the same library sequenced on multiple flow cells.
+
+> `--sample`argument takes the sample name as specified in the sample sheet supplied to `cellranger mkfastq`.
+Can take multiple comma-separated values, which is helpful if the same library was sequenced on multiple flow cells with different sample names, which therefore have different FASTQ file prefixes. Doing this will treat all reads from the library, across flow cells, as one sample.
+
+***`cellranger count` generates multiple outputs in different formats which can be use for many downstream analysis.***
+
+
