@@ -22,6 +22,8 @@ The following hardware was used:
 * [LUNARC's Aurora service HPC Desktop](https://lunarc-documentation.readthedocs.io/en/latest/using_hpc_desktop/ "LUNARC Documentation") (High-performance computing), is used for preprocessing and visualizing the raw data.
 
 # Software versions
+* Python 3.8.2
+* JupyterLab 2.2.8
 * Cell Ranger v6.0
 * Scanpy v1.7.2
 * Velocyto v0.17.17
@@ -308,3 +310,15 @@ exit 0
 ```
 
 ***We need to run this code for each of our nine samples. This pipeline will generate a folder in the cellranger count output folder, which contain a loom file for spliced and unspliced regions.***
+
+
+# References
+
+La Manno et al. (2018), RNA velocity of single cells, Nature.
+
+Bergen et al. (2020), Generalizing RNA velocity to transient cell states through dynamical modeling, Nature Biotech.
+
+Bergen et al. (2021), RNA velocity - current challenges and future perspectives, Molecular Systems Biology.
+
+#Copyright
+Copyright © Mostafa Torbati,  Department of Clinical Sciences, Division of Neurology, Lund Stem Cell Center, Lund University, Sweden 
