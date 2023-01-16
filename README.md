@@ -266,7 +266,7 @@ cellranger count --id=allReads_run_count \ #output folder
 --transcriptome=custom_ref_gene/Mus.musculus_genome_EGFP
 exit 0
 ```
->In the `cellranger count`pipeline, we can add multiple comma-separated paths of FASTQ files for the `--fastqs` argument. Doing this will treat all reads from the library, across flow cells, as one sample. This approach is essential when we have the same library sequenced on multiple flow cells.
+>`--fastqs` in the `cellranger count`pipeline, we can add multiple comma-separated paths of FASTQ files for this  argument. Doing this will treat all reads from the library, across flow cells, as one sample. This approach is essential when we have the same library sequenced on multiple flow cells.
 
 > `--sample`argument takes the sample name as specified in the sample sheet supplied to `cellranger mkfastq`.
 Can take multiple comma-separated values, which is helpful if the same library was sequenced on multiple flow cells with different sample names, which therefore have different FASTQ file prefixes. Doing this will treat all reads from the library, across flow cells, as one sample.
