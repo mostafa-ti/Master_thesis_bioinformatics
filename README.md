@@ -53,6 +53,7 @@ The script is then submitted to the scheduler using the command:
 sbatch my_script.sh
 ```
 
+---
 # Flowchart
 ![Project Flowchart](project_flowchart-3.png "Project Flowchart")
 
