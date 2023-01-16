@@ -312,7 +312,7 @@ exit 0
 ***We need to run this code for each of our nine samples. This pipeline will generate a folder in the cellranger count output folder, which contain a loom file for spliced and unspliced regions.***
 
 
-#Scanpy and ScVelo
+# Scanpy and ScVelo
 The rest of the analysis performs on Jupyter Notebook, and the prepared data is implemented on the Scanpy package for **Pre-processing** and **ScVelo** for RNA velocity.
 
 
