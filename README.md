@@ -325,5 +325,6 @@ Bergen et al. (2020), Generalizing RNA velocity to transient cell states through
 
 Bergen et al. (2021), RNA velocity - current challenges and future perspectives, Molecular Systems Biology.
 
-#Copyright
+# Copyright
+
 Copyright © Mostafa Torbati,  Department of Clinical Sciences, Division of Neurology, Lund Stem Cell Center, Lund University, Sweden 
