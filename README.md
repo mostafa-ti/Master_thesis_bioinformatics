@@ -271,6 +271,8 @@ exit 0
 > `--sample`argument takes the sample name as specified in the sample sheet supplied to `cellranger mkfastq`.
 Can take multiple comma-separated values, which is helpful if the same library was sequenced on multiple flow cells with different sample names, which therefore have different FASTQ file prefixes. Doing this will treat all reads from the library, across flow cells, as one sample.
 
-***`cellranger count` generates multiple outputs in different formats which can be use for many downstream analysis.***
+>`--transcriptome` import the ***the custom reference genome*** that we created with the `cellranger mkref`.
+
+***`cellranger count` generates multiple outputs in different formats which can be used for many downstream analysis.***
 
 
