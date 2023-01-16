@@ -24,7 +24,7 @@ The following hardware was used:
 # Software versions
 * Python 3.8.2
 * JupyterLab 2.2.8
-* Cell Ranger v6.0
+* 10x Genomics Cell Ranger v6.0
 * Scanpy v1.7.2
 * Velocyto v0.17.17
 * ScVelo v0.2.4
@@ -311,8 +311,13 @@ exit 0
 
 ***We need to run this code for each of our nine samples. This pipeline will generate a folder in the cellranger count output folder, which contain a loom file for spliced and unspliced regions.***
 
+The rest of the analysis performs on `Jupyter Notebook`and the prepared data implements on Scanpy package for **Pre-proccessing** and **ScVelo** for RNA velocity.
+
 
 # References
+10x Genomics Cell Ranger v6.0
+
+Wolf, F., Angerer, P. & Theis, F. SCANPY: large-scale single-cell gene expression data analysis. Genome Biol 19, 15 (2018).
 
 La Manno et al. (2018), RNA velocity of single cells, Nature.
 
